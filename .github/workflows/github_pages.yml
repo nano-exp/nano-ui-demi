@@ -1,0 +1,54 @@
+name: GitHub Pages
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+permissions:
+  contents: write
+jobs:
+  build-and-deploy:
+    concurrency: ci-${{ github.ref }}
+    runs-on: ubuntu-22.04
+    steps:
+      - uses: actions/checkout@v3
+      - name: Install Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 20.x
+      - uses: pnpm/action-setup@v2
+        name: Install pnpm
+        with:
+          version: 8.x
+          run_install: false
+      - name: Get pnpm store directory
+        shell: bash
+        run: |
+          echo "STORE_PATH=$(pnpm store path --silent)" >> $GITHUB_ENV
+      - uses: actions/cache@v3
+        name: Setup pnpm cache
+        with:
+          path: ${{ env.STORE_PATH }}
+          key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
+          restore-keys: |
+            ${{ runner.os }}-pnpm-store-
+      - run: |
+          WD=$(pwd)
+          export VITE_BASE=/nano-ui/
+          pnpm install
+          npm run site
+          mkdir -p $WD/dist/example
+          export VITE_BASE=/nano-ui/example/vue2/
+          cd $WD/example/vue2
+          pnpm install
+          npm run build
+          mv dist $WD/dist/example/vue2
+          export VITE_BASE=/nano-ui/example/vue3/
+          cd $WD/example/vue3
+          pnpm install
+          npm run build
+          mv dist $WD/dist/example/vue3
+      - name: Deploy 🚀
+        uses: JamesIves/github-pages-deploy-action@v4
+        with:
+          folder: dist
