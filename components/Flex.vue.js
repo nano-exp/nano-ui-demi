@@ -1,19 +1,19 @@
-import { computed as t, openBlock as l, createElementBlock as a, normalizeStyle as o, renderSlot as p } from "vue";
-const u = {
+import { computed as t, openBlock as l, createElementBlock as a, normalizeStyle as o, unref as p, renderSlot as s } from "vue";
+const f = {
   __name: "Flex",
-  setup(s) {
+  setup(n) {
     const e = t(() => ({
       display: "flex",
       gap: "8px 12px",
       flexWrap: "wrap"
     }));
-    return (r, n) => (l(), a("div", {
-      style: o(e.value)
+    return (r, c) => (l(), a("div", {
+      style: o(p(e))
     }, [
-      p(r.$slots, "default")
+      s(r.$slots, "default")
     ], 4));
   }
 };
 export {
-  u as default
+  f as default
 };
