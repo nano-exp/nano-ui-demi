@@ -1,4 +1,4 @@
-import { ref as f, shallowRef as d, onMounted as k, onBeforeUnmount as R, openBlock as m, createElementBlock as B, createElementVNode as a, unref as v, renderSlot as w, createBlock as S, Teleport as T, withDirectives as O, vShow as j } from "vue";
+import { ref as f, shallowRef as d, onMounted as R, onBeforeUnmount as b, openBlock as m, createElementBlock as B, createElementVNode as a, unref as v, renderSlot as w, createBlock as S, Teleport as T, withDirectives as O, vShow as j } from "vue";
 import { autoUpdate as D, computePosition as E, arrow as M } from "../node_modules/.pnpm/@floating-ui_dom@1.6.1/node_modules/@floating-ui/dom/dist/floating-ui.dom.js";
 import "./Tooltip.vue2.js";
 import U from "../_virtual/_plugin-vue_export-helper.js";
@@ -12,17 +12,17 @@ const C = { class: "n-tooltip" }, F = { class: "tooltip-container" }, I = {
     const g = _, l = f(), t = f(), o = f(), s = d(!1), r = d();
     function h() {
       return D(l.value, t.value, async () => {
-        const e = o.value.offsetWidth, n = Math.sqrt(2 * e ** 2) / 2, { x: i, y, middlewareData: c, placement: b } = await E(l.value, t.value, {
+        const e = o.value.offsetWidth, n = Math.sqrt(2 * e ** 2) / 2, { x: i, y, middlewareData: c, placement: x } = await E(l.value, t.value, {
           placement: g.placement,
           middleware: [q(n), M({ element: o.value })]
         });
         Object.assign(t.value.style, { left: `${i}px`, top: `${y}px` });
-        const x = b.split("-")[0], $ = {
+        const $ = x.split("-")[0], k = {
           top: "bottom",
           right: "left",
           bottom: "top",
           left: "right"
-        }[x];
+        }[$];
         if (c.arrow) {
           const { x: p, y: u } = c.arrow;
           Object.assign(o.value.style, {
@@ -30,15 +30,15 @@ const C = { class: "n-tooltip" }, F = { class: "tooltip-container" }, I = {
             top: u != null ? `${u}px` : "",
             right: "",
             bottom: "",
-            [$]: `${-e / 2}px`,
+            [k]: `${-e / 2}px`,
             transform: "rotate(45deg)"
           });
         }
       });
     }
-    return k(async () => {
+    return R(async () => {
       r.value = h();
-    }), R(() => {
+    }), b(() => {
       var e;
       (e = r.value) == null || e.call(r);
     }), (e, n) => (m(), B("div", C, [
@@ -70,7 +70,7 @@ const C = { class: "n-tooltip" }, F = { class: "tooltip-container" }, I = {
       ]))
     ]));
   }
-}, z = /* @__PURE__ */ U(I, [["__scopeId", "data-v-3fbfb706"]]);
+}, z = /* @__PURE__ */ U(I, [["__scopeId", "data-v-17487c59"]]);
 export {
   z as default
 };
